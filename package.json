@@ -7,10 +7,12 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "aws-deploy": "aws s3 sync dist/my-dream-app/ s3://example-bucket"
   },
   "private": true,
   "dependencies": {
+    "@agm/core": "^1.0.0-beta.7",
     "@angular/animations": "~8.1.2",
     "@angular/common": "~8.1.2",
     "@angular/compiler": "~8.1.2",
@@ -19,6 +21,11 @@
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
+    "angular-chart.js": "^1.1.1",
+    "bootstrap": "^4.3.1",
+    "chart.js": "^2.8.0",
+    "ng2-charts": "^2.3.0",
+    "node-sass": "^4.12.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
