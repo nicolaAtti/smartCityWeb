@@ -1,0 +1,13 @@
+<script src="node_modules/chart.js/src/chart.js"></script>
+<h2>Temperature Graph</h2>
+<div>
+  <div style="display: block">
+    <canvas baseChart
+            [datasets]="tempChartData"
+            [labels]="tempChartLabels"
+            [options]="tempChartOptions"
+            [legend]="tempChartLegend"
+            [chartType]="tempChartType">
+    </canvas>
+  </div>
+</div>
