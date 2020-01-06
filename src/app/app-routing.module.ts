@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  {path: 'airunit-1', loadChildren: () => import('./airunit/airunit.module').then(m => m.AirunitModule)}
+  {path: 'airunit-eca1', loadChildren: () => import('./airunit/airunit.module').then(m => m.AirunitModule)}
 ];
 
 @NgModule({

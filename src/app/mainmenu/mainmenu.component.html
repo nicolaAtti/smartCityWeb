@@ -5,18 +5,27 @@
     <div>
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a [routerLink]="'/airunit-55'">Air Unit 55</a>
+          <a [routerLink]="'/airunit-55'">AirUnit 55</a>
         </li>
         <li class="nav-item">
-          <a [routerLink]="'/airunit-49'">Air Unit 49</a>
+          <a [routerLink]="'/airunit-49'">AirUnit 49</a>
         </li>
         <li class="nav-item">
-          <a [routerLink]="'/airunit-100'">Air unit 100</a>
+          <a [routerLink]="'/airunit-100'">AirUnit 100</a>
         </li>
         <li class="nav-item">
-          <a [routerLink]="'/airunit-1'">Air unit 1</a>
+          <a [routerLink]="'/airunit-eca1'">AirUnit eca1</a>
         </li>
       </ul>
     </div>
   </section>
+    <google-map
+      height="1000px"
+      width="100%"
+      [zoom]="zoom"
+      [center]="center"
+      [options]="options"
+    ></google-map>
+    <button (click)="zoomIn()">Zoom in</button>
+    <button (click)="zoomOut()">Zoom out</button>
 </div>

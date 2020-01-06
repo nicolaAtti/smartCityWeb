@@ -5,12 +5,14 @@ import {AirunitComponent} from "./airunit.component";
 import { AirunitRoutingModule } from './airunit-routing.module';
 import {TempChartComponent} from "./temp-chart/temp-chart.component";
 import {ChartsModule} from "ng2-charts";
+import { OverviewComponent } from './overview/overview.component';
 
 
 @NgModule({
   declarations: [
     AirunitComponent,
-    TempChartComponent
+    TempChartComponent,
+    OverviewComponent
   ],
   imports: [
     CommonModule,
