@@ -24,7 +24,7 @@
           <h5 class="mb-0 text-left">Temperature</h5>
         </div>
         <div class="card-body p-3">
-          <p class="card-text" id="temp_text">{{latestReading.temperatureReading}} °C</p>
+          <p class="card-text" id="temp_text">{{temperatureString}}</p>
         </div>
       </div>
       <div class="card humidity my-4">
@@ -32,7 +32,7 @@
           <h5 class="mb-0 text-left">Humidity</h5>
         </div>
         <div class="card-body p-3">
-          <p class="card-text">{{latestReading.humidityReading}} %</p>
+          <p class="card-text">{{humidityString}}</p>
         </div>
       </div>
       <div class="card water my-4">
@@ -40,7 +40,7 @@
           <h5 class="mb-0 text-left">Water Detection</h5>
         </div>
         <div class="card-body p-3">
-          <p class="card-text">{{dryStatus}}</p>
+          <p class="card-text">{{dryStatusString}}</p>
         </div>
       </div>
       <div class="card dust my-4">
@@ -49,11 +49,11 @@
         </div>
         <div class="card-body p-3">
           <h6>General Dust Level :</h6>
-          <p class="card-text">{{latestReading.dust}} Particles/m3</p>
+          <p class="card-text">{{dustString}}</p>
           <h6>Pm 10 :</h6>
-          <p> {{latestReading.pm10Reading}} </p>
+          <p> {{pm10String}}</p>
           <h6>Pm 2.5</h6>
-          <p> {{latestReading.pm25Reading}} </p>
+          <p> {{pm25String}}</p>
         </div>
       </div>
       <div class="card gas my-4">
@@ -61,7 +61,7 @@
           <h5 class="mb-0 text-left">Gas Reading</h5>
         </div>
         <div class="card-body p-3">
-          <p class="card-text">{{latestReading.gasReading}}</p>
+          <p class="card-text">{{gasString}}</p>
         </div>
       </div>
     <div class="card gps my-4">
@@ -70,11 +70,11 @@
       </div>
       <div class="card-body p-3">
         <h6>Latitude :</h6>
-        <p class="card-text">{{latestReading.latitude}}</p>
+        <p class="card-text">{{latitudeString}}</p>
         <h6>Longitude :</h6>
-        <p class="card-text">{{latestReading.longitude}}</p>
+        <p class="card-text">{{longitudeString}}</p>
         <h6>Altitude :</h6>
-        <p class="card-text">{{latestReading.altitude}}</p>
+        <p class="card-text">{{altitudeString}}</p>
       </div>
     </div>
   </div>
