@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {HttpClient, HttpResponse} from "@angular/common/http";
+import {Observable, throwError} from "rxjs";
+import {environment} from "../environments/environment.prod";
+import {Reading} from "./Reading";
+import {catchError} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -8,18 +11,16 @@ import {Observable} from "rxjs";
 
 export class AirReadingsService {
 
-  private airReadingsApiBaseUrl = "https://o6g9wi7jga.execute-api.eu-central-1.amazonaws.com/producion";
+  private airReadingsApiBaseUrl = environment.air_reading_api_base_url;
 
   constructor(private httpClient: HttpClient) { }
 
-  getLatestReading(airUnitId: string): Observable<string> {
-    return this.httpClient.get<string>(this.airReadingsApiBaseUrl+"/readings/"+airUnitId+"/latest");
-  };
-
-  getReadings(airUnitId: string): Observable<string> {
-    return this.httpClient.get<string>(this.airReadingsApiBaseUrl+/readings/+airUnitId);
+  getLatestReading(airUnitId: string): Observable<Reading> {
+    return this.httpClient.get<Reading>(this.airReadingsApiBaseUrl+"/readings/"+airUnitId+"/latest");
   }
 
-
+  getReadings(airUnitId: string): Observable<Reading[]>{
+    return this.httpClient.get<Reading[]>(this.airReadingsApiBaseUrl+/readings/+airUnitId);
+  }
 
 }

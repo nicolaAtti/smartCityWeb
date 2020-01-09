@@ -1,12 +1,13 @@
 <script src="node_modules/chart.js/src/chart.js"></script>
 
-<h2>Air Unit 1 Control Panel</h2>
+<h2>AirUnit Control Panel</h2>
   <ul>
-    <li><a routerLink="overview">Overview</a></li>
-    <li><a routerLink="temp-chart">Temperature</a></li>
-    <li><a href="#">Humidity</a></li>
-    <li><a href="#">Pm 2.5</a></li>
-    <li><a href="#">Pm 10 </a> </li>
+    <li><a routerLink="overview" [queryParams]="{id: airUnitId }">Overview</a></li>
+    <li><a routerLink="temp-chart" [queryParams]="{id: airUnitId }">Temperature Chart</a></li>
+    <li><a routerLink="humidity-chart" [queryParams]="{id: airUnitId }">Humidity Chart</a></li>
+    <li><a routerLink="particles-chart" [queryParams]="{id: airUnitId }">Particles Chart</a></li>
+    <li><a routerLink="gas-chart" [queryParams]="{id: airUnitId }">Gas Chart</a></li>
+    <li><a href="#">Back to main</a></li>
   </ul>
 <div>
   <router-outlet></router-outlet>

@@ -11,11 +11,11 @@ export class MainmenuComponent implements OnInit {
   center: google.maps.LatLngLiteral;
   options: google.maps.MapOptions = {
     mapTypeId: 'hybrid',
-    zoomControl: false,
-    scrollwheel: false,
+    zoomControl: true,
+    scrollwheel: true,
     disableDoubleClickZoom: true,
     maxZoom: 15,
-    minZoom: 8,
+    minZoom: 6,
   };
   constructor() { }
 
@@ -27,13 +27,4 @@ export class MainmenuComponent implements OnInit {
       }
     })
   }
-
-  zoomIn() {
-    if (this.zoom < this.options.maxZoom) this.zoom++
-  }
-
-  zoomOut() {
-    if (this.zoom > this.options.minZoom) this.zoom--
-  }
-
 }

@@ -6,7 +6,7 @@
         <h5 class="mb-0 text-left">AirUnit Complete Id</h5>
       </div>
       <div class="card-body p-1">
-        <p class="card-text p-2">eca1dad9-f972-4bff-b5e1-ce2986b09c46</p>
+        <p class="card-text p-2">{{airUnitId}}</p>
       </div>
     </div>
     <div class="card my-3">
@@ -14,7 +14,7 @@
         <h5 class="mb-0 text-left">Latest Reading Date</h5>
       </div>
       <div class="card-body p-1">
-        <p class="card-text p-2">Today [PLACEHOLDER]</p>
+        <p class="card-text p-2">{{latestReadingDate}}</p>
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@
           <h5 class="mb-0 text-left">Temperature</h5>
         </div>
         <div class="card-body p-3">
-          <p class="card-text">Temperature [VALUE] °C</p>
+          <p class="card-text" id="temp_text">{{latestReading.temperatureReading}} °C</p>
         </div>
       </div>
       <div class="card humidity my-4">
@@ -32,7 +32,7 @@
           <h5 class="mb-0 text-left">Humidity</h5>
         </div>
         <div class="card-body p-3">
-          <p class="card-text">Humidity [VALUE]</p>
+          <p class="card-text">{{latestReading.humidityReading}} %</p>
         </div>
       </div>
       <div class="card water my-4">
@@ -40,7 +40,7 @@
           <h5 class="mb-0 text-left">Water Detection</h5>
         </div>
         <div class="card-body p-3">
-          <p class="card-text">[USE CONDITION TO PRINT A STRING, USE JS]</p>
+          <p class="card-text">{{dryStatus}}</p>
         </div>
       </div>
       <div class="card dust my-4">
@@ -48,7 +48,12 @@
           <h5 class="mb-0 text-left">Dust Levels</h5>
         </div>
         <div class="card-body p-3">
-          <p class="card-text">Dust level: [VALUE + SINGLE PM VALUES]</p>
+          <h6>General Dust Level :</h6>
+          <p class="card-text">{{latestReading.dust}} Particles/m3</p>
+          <h6>Pm 10 :</h6>
+          <p> {{latestReading.pm10Reading}} </p>
+          <h6>Pm 2.5</h6>
+          <p> {{latestReading.pm25Reading}} </p>
         </div>
       </div>
       <div class="card gas my-4">
@@ -56,7 +61,7 @@
           <h5 class="mb-0 text-left">Gas Reading</h5>
         </div>
         <div class="card-body p-3">
-          <p class="card-text">Gas reading: [VALUE]</p>
+          <p class="card-text">{{latestReading.gasReading}}</p>
         </div>
       </div>
     <div class="card gps my-4">
@@ -64,7 +69,12 @@
         <h5 class="mb-0 text-left">GPS Values</h5>
       </div>
       <div class="card-body p-3">
-        <p class="card-text">[SINGULAR GPS VALUES]</p>
+        <h6>Latitude :</h6>
+        <p class="card-text">{{latestReading.latitude}}</p>
+        <h6>Longitude :</h6>
+        <p class="card-text">{{latestReading.longitude}}</p>
+        <h6>Altitude :</h6>
+        <p class="card-text">{{latestReading.altitude}}</p>
       </div>
     </div>
   </div>
