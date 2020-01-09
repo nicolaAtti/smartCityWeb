@@ -57,10 +57,10 @@ export class ParticlesChartComponent implements OnInit {
 
   private getParticlesList(readings: Reading[]){
     readings.forEach(reading => {
-      this.evaluateReading(reading.pm10Reading, reading.pm25Reading, Number(reading.date));
+      this.evaluateReading(reading.pm10Reading, reading.pm25Reading, reading.date);
     });
   }
-  private evaluateReading(readPm10String: string, readPm25String: string, readLabel: number){
+  private evaluateReading(readPm10String: string, readPm25String: string, readLabel: string){
     let pm10Added = false;
     let pm25Added = false;
     if(readPm10String != "Error"){
@@ -72,7 +72,7 @@ export class ParticlesChartComponent implements OnInit {
       pm25Added = true;
     }
     if(pm10Added || pm25Added){
-      const date = new Date(readLabel*1000);
+      const date = new Date(readLabel);
       const labelString = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
       this.particlesChartLabels.push(`${labelString}`);
     }

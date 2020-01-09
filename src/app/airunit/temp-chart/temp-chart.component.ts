@@ -54,12 +54,12 @@ export class TempChartComponent implements OnInit {
   }
 
   private getTemperatureList(readings: Reading[]){
-    readings.forEach(reading => this.evaluateReading(reading.temperatureReading, Number(reading.date)));
+    readings.forEach(reading => this.evaluateReading(reading.temperatureReading, reading.date));
   }
 
-  private evaluateReading(readString: string, readLabel: number){
+  private evaluateReading(readString: string, readLabel: string){
     if(readString != "Error"){
-      const date = new Date(readLabel*1000);
+      const date = new Date(readLabel);
       const labelString = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
       this.tempChartData[0].data.push(Number(readString));
       this.tempChartLabels.push(`${labelString}`);

@@ -54,11 +54,11 @@ export class GasChartComponent implements OnInit {
   }
 
   private getGasList(readings: Reading[]){
-    readings.forEach(reading => this.evaluateReading(reading.gasReading, Number(reading.date)));
+    readings.forEach(reading => this.evaluateReading(reading.gasReading, reading.date));
   }
-  private evaluateReading(readString: string, readLabel: number){
+  private evaluateReading(readString: string, readLabel: string){
     if(readString != "Error"){
-      const date = new Date(readLabel*1000);
+      const date = new Date(readLabel);
       const labelString = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
       this.gasChartData[0].data.push(Number(readString));
       this.gasChartLabels.push(`${labelString}`);
