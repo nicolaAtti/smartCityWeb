@@ -19,6 +19,20 @@ export class GasChartComponent implements OnInit {
   public gasChartLabels: Label[] = ['1', '2', '3', '4', '5', '6', '7','8','9','10','11','12','13','14','15','16','17','18','19','20'];
   public gasChartOptions: ChartOptions = {
     responsive: true,
+    scales: {
+      // We use this empty structure as a placeholder for dynamic theming.
+      xAxes: [{}],
+      yAxes: [
+        {
+          id: 'y-axis-0',
+          position: 'left',
+          ticks: {
+            max : 1000,
+            min: 0
+          }
+        }
+      ]
+    },
   };
   public gasChartColors: Color[] = [
     {

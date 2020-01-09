@@ -18,7 +18,23 @@ export class HumidityChartComponent implements OnInit {
   ];
   public humidityChartLabels: Label[] = ['1', '2', '3', '4', '5', '6', '7','8','9','10','11','12','13','14','15','16','17','18','19','20'];
   public humidityChartOptions = {
-    responsive: true
+    responsive: true,
+    scales: {
+      // We use this empty structure as a placeholder for dynamic theming.
+      xAxes: [{}],
+      yAxes: [
+        {
+          id: 'y-axis-0',
+          position: 'left',
+          ticks: {
+            steps : 20,
+            stepValue : 5,
+            max : 100,
+            min: 0
+          }
+        }
+      ]
+    },
   };
   public humidityChartColors: Color[] = [
     {
@@ -46,6 +62,7 @@ export class HumidityChartComponent implements OnInit {
   private evaluateReading(readString: string){
     if(readString != "Error"){
       this.humidityChartData[0].data.push(Number(readString))
+      //TODO add dynamic label adjustment
     }
   }
 }
