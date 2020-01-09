@@ -16,7 +16,7 @@ export class HumidityChartComponent implements OnInit {
   public humidityChartData: ChartDataSets[] = [
     { data: [], label: 'Humidity %' }
   ];
-  public humidityChartLabels: Label[] = ['1', '2', '3', '4', '5', '6', '7','8','9','10','11','12','13','14','15','16','17','18','19','20'];
+  public humidityChartLabels: Label[] = [];
   public humidityChartOptions = {
     responsive: true,
     scales: {
@@ -56,13 +56,15 @@ export class HumidityChartComponent implements OnInit {
   }
 
   private getHumidityList(readings: Reading[]){
-    readings.forEach(reading => this.evaluateReading(reading.humidityReading));
+    readings.forEach(reading => this.evaluateReading(reading.humidityReading, Number(reading.date)));
   }
 
-  private evaluateReading(readString: string){
+  private evaluateReading(readString: string, readLabel: number){
     if(readString != "Error"){
-      this.humidityChartData[0].data.push(Number(readString))
-      //TODO add dynamic label adjustment
+      const date = new Date(readLabel*1000);
+      const labelString = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+      this.humidityChartData[0].data.push(Number(readString));
+      this.humidityChartLabels.push(`${labelString}`);
     }
   }
 }

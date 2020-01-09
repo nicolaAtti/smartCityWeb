@@ -16,7 +16,7 @@ export class TempChartComponent implements OnInit {
   public tempChartData: ChartDataSets[] = [
     { data: [], label: 'Temperature °C' }
   ];
-  public tempChartLabels: Label[] = ['1', '2', '3', '4', '5', '6', '7','8','9','10','11','12','13','14','15','16','17','18','19','20'];
+  public tempChartLabels: Label[] = [];
   public tempChartOptions = {
     responsive: true,
     scales: {
@@ -54,12 +54,15 @@ export class TempChartComponent implements OnInit {
   }
 
   private getTemperatureList(readings: Reading[]){
-    readings.forEach(reading => this.evaluateReading(reading.temperatureReading));
+    readings.forEach(reading => this.evaluateReading(reading.temperatureReading, Number(reading.date)));
   }
 
-  private evaluateReading(readString: string){
+  private evaluateReading(readString: string, readLabel: number){
     if(readString != "Error"){
-      this.tempChartData[0].data.push(Number(readString))
+      const date = new Date(readLabel*1000);
+      const labelString = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+      this.tempChartData[0].data.push(Number(readString));
+      this.tempChartLabels.push(`${labelString}`);
     }
   }
 }

@@ -16,7 +16,7 @@ export class GasChartComponent implements OnInit {
   public gasChartData: ChartDataSets[] = [
     { data: [], label: 'Gas Reading' },
   ];
-  public gasChartLabels: Label[] = ['1', '2', '3', '4', '5', '6', '7','8','9','10','11','12','13','14','15','16','17','18','19','20'];
+  public gasChartLabels: Label[] = [];
   public gasChartOptions: ChartOptions = {
     responsive: true,
     scales: {
@@ -54,11 +54,14 @@ export class GasChartComponent implements OnInit {
   }
 
   private getGasList(readings: Reading[]){
-    readings.forEach(reading => this.evaluateReading(reading.gasReading));
+    readings.forEach(reading => this.evaluateReading(reading.gasReading, Number(reading.date)));
   }
-  private evaluateReading(readString: string){
+  private evaluateReading(readString: string, readLabel: number){
     if(readString != "Error"){
-      this.gasChartData[0].data.push(Number(readString))
+      const date = new Date(readLabel*1000);
+      const labelString = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+      this.gasChartData[0].data.push(Number(readString));
+      this.gasChartLabels.push(`${labelString}`);
     }
   }
 

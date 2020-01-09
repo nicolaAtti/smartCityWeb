@@ -17,7 +17,7 @@ export class ParticlesChartComponent implements OnInit {
     { data: [], label: 'Pm 10 Levels' },
     { data: [], label: 'Pm 25 Levels' }
     ];
-  public particlesChartLabels: Label[] = ['1', '2', '3', '4', '5', '6', '7','8','9','10','11','12','13','14','15','16','17','18','19','20'];
+  public particlesChartLabels: Label[] = [];
   public particlesChartOptions: ChartOptions = {
     responsive: true,
     scales: {
@@ -57,15 +57,24 @@ export class ParticlesChartComponent implements OnInit {
 
   private getParticlesList(readings: Reading[]){
     readings.forEach(reading => {
-      this.evaluateReading(reading.pm10Reading, reading.pm25Reading);
+      this.evaluateReading(reading.pm10Reading, reading.pm25Reading, Number(reading.date));
     });
   }
-  private evaluateReading(readPm10String: string, readPm25String: string){
+  private evaluateReading(readPm10String: string, readPm25String: string, readLabel: number){
+    let pm10Added = false;
+    let pm25Added = false;
     if(readPm10String != "Error"){
       this.particlesChartData[0].data.push(Number(readPm10String))
+      pm10Added = true;
     }
     if(readPm25String != "Error"){
       this.particlesChartData[1].data.push(Number(readPm25String))
+      pm25Added = true;
+    }
+    if(pm10Added || pm25Added){
+      const date = new Date(readLabel*1000);
+      const labelString = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+      this.particlesChartLabels.push(`${labelString}`);
     }
   }
 
