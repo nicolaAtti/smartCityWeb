@@ -7,6 +7,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { MainmenuComponent } from './mainmenu/mainmenu.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import {InterceptorService} from "./interceptor.service";
+import {AgmCoreModule} from "@agm/core";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {InterceptorService} from "./interceptor.service";
     AppRoutingModule,
     ChartsModule,
     HttpClientModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    AgmCoreModule
   ],
   providers: [
     {

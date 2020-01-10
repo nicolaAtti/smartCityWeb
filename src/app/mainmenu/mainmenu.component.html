@@ -20,10 +20,17 @@
     </div>
   </section>
     <google-map
-      height="650px"
-      width="100%"
-      [zoom]="zoom"
       [center]="center"
       [options]="options"
-    ></google-map>
+      [zoom]="zoom"
+      height="650px"
+      width="100%">
+  <map-marker
+      #markerElem
+      *ngFor="let marker of markers"
+      [position]="marker.position"
+      [title]="marker.title"
+    >
+    </map-marker>
+    </google-map>
 </div>
