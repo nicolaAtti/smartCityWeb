@@ -9,6 +9,8 @@ import { OverviewComponent } from './overview/overview.component';
 import {HumidityChartComponent} from "./humidity-chart/humidity-chart.component";
 import { ParticlesChartComponent } from './particles-chart/particles-chart.component';
 import { GasChartComponent } from './gas-chart/gas-chart.component';
+import { ListReadingsComponent } from './list-readings/list-readings.component';
+import {GoogleMapsModule} from "@angular/google-maps";
 
 
 @NgModule({
@@ -18,12 +20,14 @@ import { GasChartComponent } from './gas-chart/gas-chart.component';
     HumidityChartComponent,
     OverviewComponent,
     ParticlesChartComponent,
-    GasChartComponent
+    GasChartComponent,
+    ListReadingsComponent
   ],
   imports: [
     CommonModule,
     AirunitRoutingModule,
-    ChartsModule
+    ChartsModule,
+    GoogleMapsModule
   ]
 })
 export class AirunitModule { }

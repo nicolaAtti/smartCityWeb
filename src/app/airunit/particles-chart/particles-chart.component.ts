@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import {AirReadingsService} from "../../air-readings.service";
@@ -10,7 +10,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   templateUrl: './particles-chart.component.html',
   styleUrls: ['./particles-chart.component.sass']
 })
-export class ParticlesChartComponent implements OnInit {
+export class ParticlesChartComponent implements OnInit, OnDestroy {
   private airUnitId: string;
 
   public particlesChartData: ChartDataSets[] = [
@@ -52,6 +52,8 @@ export class ParticlesChartComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.airUnitId = params['id'];
       this.airReadingsService.getReadings(this.airUnitId).subscribe(readings => this.getParticlesList(readings));
+      const menu = document.getElementById("particles-menu");
+      menu.className = "li a active";
     });
   }
 
@@ -76,6 +78,11 @@ export class ParticlesChartComponent implements OnInit {
       const labelString = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
       this.particlesChartLabels.push(`${labelString}`);
     }
+  }
+
+  ngOnDestroy(): void {
+    const menu = document.getElementById("particles-menu");
+    menu.className = "li a ";
   }
 
 }

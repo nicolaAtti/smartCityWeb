@@ -6,6 +6,7 @@ import {OverviewComponent} from "./overview/overview.component";
 import {HumidityChartComponent} from "./humidity-chart/humidity-chart.component";
 import {ParticlesChartComponent} from "./particles-chart/particles-chart.component";
 import {GasChartComponent} from "./gas-chart/gas-chart.component";
+import {ListReadingsComponent} from "./list-readings/list-readings.component";
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
       {path: "overview", component: OverviewComponent},
       {path: "humidity-chart", component: HumidityChartComponent},
       {path: "particles-chart", component: ParticlesChartComponent},
-      {path: "gas-chart", component: GasChartComponent}
+      {path: "gas-chart", component: GasChartComponent},
+      {path: "list-readings", component: ListReadingsComponent}
     ]
   }
 ];

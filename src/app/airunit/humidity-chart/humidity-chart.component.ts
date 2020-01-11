@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import {AirReadingsService} from "../../air-readings.service";
@@ -10,7 +10,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   templateUrl: './humidity-chart.component.html',
   styleUrls: ['./humidity-chart.component.sass']
 })
-export class HumidityChartComponent implements OnInit {
+export class HumidityChartComponent implements OnInit, OnDestroy {
   private airUnitId: string;
 
   public humidityChartData: ChartDataSets[] = [
@@ -52,6 +52,8 @@ export class HumidityChartComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.airUnitId = params['id'];
       this.airReadingsService.getReadings(this.airUnitId).subscribe(readings => this.getHumidityList(readings));
+      const menu = document.getElementById("humidity-menu");
+      menu.className = "li a active";
     });
   }
 
@@ -66,5 +68,10 @@ export class HumidityChartComponent implements OnInit {
       this.humidityChartData[0].data.push(Number(readString));
       this.humidityChartLabels.push(`${labelString}`);
     }
+  }
+
+  ngOnDestroy(): void {
+    const menu = document.getElementById("humidity-menu");
+    menu.className = "li a ";
   }
 }

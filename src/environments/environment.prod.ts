@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  air_reading_api_base_url: 'https://o6g9wi7jga.execute-api.eu-central-1.amazonaws.com/producion'
+  air_reading_api_base_url: 'https://hj9ky8074k.execute-api.eu-central-1.amazonaws.com/production'
 };

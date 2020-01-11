@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import {AirReadingsService} from "../../air-readings.service";
@@ -10,7 +10,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   templateUrl: './temp-chart.component.html',
   styleUrls: ['./temp-chart.component.sass']
 })
-export class TempChartComponent implements OnInit {
+export class TempChartComponent implements OnInit, OnDestroy {
   private airUnitId: string;
 
   public tempChartData: ChartDataSets[] = [
@@ -50,6 +50,8 @@ export class TempChartComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.airUnitId = params['id'];
       this.airReadingsService.getReadings(this.airUnitId).subscribe(readings => this.getTemperatureList(readings));
+      const menu = document.getElementById("temp-menu");
+      menu.className = "li a active";
     });
   }
 
@@ -64,5 +66,10 @@ export class TempChartComponent implements OnInit {
       this.tempChartData[0].data.push(Number(readString));
       this.tempChartLabels.push(`${labelString}`);
     }
+  }
+
+  ngOnDestroy(): void {
+    const menu = document.getElementById("temp-menu");
+    menu.className = "li a";
   }
 }
