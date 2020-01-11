@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {NavigationStart, Router} from "@angular/router";
-import {AirReadingsService} from "./air-readings.service";
 
 @Component({
   selector: 'app-root',

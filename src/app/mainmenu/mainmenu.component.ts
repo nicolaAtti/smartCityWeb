@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AirReadingsService} from "../air-readings.service";
+import {Router} from "@angular/router";
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-mainmenu',
@@ -7,45 +9,34 @@ import {AirReadingsService} from "../air-readings.service";
   styleUrls: ['./mainmenu.component.sass']
 })
 export class MainmenuComponent implements OnInit {
-  zoom = 12;
-  center: google.maps.LatLngLiteral;
-  options: google.maps.MapOptions = {
-    mapTypeId: 'hybrid',
-    zoomControl: true,
-    scrollwheel: true,
-    disableDoubleClickZoom: true,
-    maxZoom: 15,
-    minZoom: 6,
-  };
-  markers = [];
+  private map;
   airunits = [];
 
-  constructor(private airReadingsService: AirReadingsService) { }
+  constructor(private airReadingsService: AirReadingsService, private router: Router) { }
 
   ngOnInit() {
     navigator.geolocation.getCurrentPosition(position => {
-      this.center = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      }
-    });
-
-    this.airReadingsService.getAirUnits().subscribe(airUnits => {
-      this.airunits = airUnits;
-      airUnits.forEach( unit => this.airReadingsService.getLatestReading(unit.unitId).subscribe(reading => {
-        this.addMarker(Number(reading.latitude), Number(reading.longitude), unit.name);
-      }))
+        this.map = L.map('mapid', {
+        center: [ position.coords.latitude, position.coords.longitude ],
+        zoom: 7
+      });
+      const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      });
+      tiles.addTo(this.map);
+      this.airReadingsService.getAirUnits().subscribe(airUnits => {
+        this.airunits = airUnits;
+        airUnits.forEach( unit => this.airReadingsService.getLatestReading(unit.unitId).subscribe(reading => {
+          this.addMarker(Number(reading.latitude), Number(reading.longitude), unit.name);
+          this.router.config.push( {path: 'airunit-'+unit.unitId, loadChildren: () => import('../airunit/airunit.module').then(m => m.AirunitModule)});
+        }))
+      });
     });
   }
 
-  private addMarker(lat: number, lng: number, title: string) {
-    this.markers.push(
-      {position: {
-          lat: lat,
-          lng: lng,
-        },
-        title: title,
-      }
-    )
+  private addMarker(lon: number, lat: number,title: string){
+    var marker = L.marker([lon, lat]).addTo(this.map);
+    marker.bindPopup(title);
   }
 }

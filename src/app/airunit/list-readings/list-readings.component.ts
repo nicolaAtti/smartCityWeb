@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {Reading} from "../../Reading";
 import {AirReadingsService} from "../../air-readings.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-list-readings',
@@ -12,18 +13,7 @@ export class ListReadingsComponent implements OnInit, AfterViewInit, OnDestroy {
   private airUnitId: string;
   private selectedReading: Reading;
   private readings: Reading[];
-
-  zoom = 12;
-  center: google.maps.LatLngLiteral;
-  options: google.maps.MapOptions = {
-    mapTypeId: 'hybrid',
-    zoomControl: true,
-    scrollwheel: true,
-    disableDoubleClickZoom: true,
-    maxZoom: 20,
-    minZoom: 6,
-  };
-  markers = [];
+  private map;
 
   constructor(private route: ActivatedRoute, private router: Router, private airReadingsService: AirReadingsService) { }
 
@@ -63,21 +53,18 @@ export class ListReadingsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private setMarkerAndCenter(lat: number, lng: number, title: string) {
-    this.markers = [];
-    this.markers.push(
-      {position: {
-          lat: lat,
-          lng: lng,
-        },
-        title: title,
-      }
-    );
-    navigator.geolocation.getCurrentPosition(() => {
-      this.center = {
-        lat: lat,
-        lng: lng,
-      }
+    this.map = L.map('mapid', {
+      center: [ lat, lng ],
+      zoom: 10
     });
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+    tiles.addTo(this.map);
+
+    var marker = L.marker([lng, lat]).addTo(this.map);
+    marker.bindPopup(title);
   }
 
   ngOnDestroy(): void {
