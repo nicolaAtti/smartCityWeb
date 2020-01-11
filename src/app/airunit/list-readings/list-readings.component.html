@@ -1,14 +1,14 @@
 <h2>Reading History</h2>
 
 <div class="row">
-  <div class="column">
+  <div class="column-1">
     <ul>
       <li class="nav-readings"  *ngFor="let element of readings">
         <button class="nav-link" id="{{element.readingId}}" (click)="setSelectedReading(element)">Reading of {{element.date}}</button>
       </li>
     </ul>
   </div>
-  <div class="column">
+  <div class="column-2">
     <h3>Temperature</h3>
     <p>{{selectedReading.temperatureReading+" °C"}}</p>
     <h3>Humidity</h3>
@@ -24,12 +24,12 @@
     <h3>Gas</h3>
     <p>{{selectedReading.gasReading+" ppm"}}</p>
   </div>
-  <div class="column">
+  <div class="column-3">
     <google-map
       [center]="center"
       [options]="options"
       [zoom]="zoom"
-      height="650px"
+      height="800px"
       width="100%">
       <map-marker
         *ngFor="let marker of markers"

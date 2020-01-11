@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import {AirReadingsService} from "../../air-readings.service";
@@ -10,7 +10,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   templateUrl: './gas-chart.component.html',
   styleUrls: ['./gas-chart.component.sass']
 })
-export class GasChartComponent implements OnInit {
+export class GasChartComponent implements OnInit, OnDestroy {
   private airUnitId: string;
 
   public gasChartData: ChartDataSets[] = [
@@ -50,6 +50,8 @@ export class GasChartComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.airUnitId = params['id'];
       this.airReadingsService.getReadings(this.airUnitId).subscribe(readings => this.getGasList(readings));
+      const menu = document.getElementById("gas-menu");
+      menu.className = "li a active";
     });
   }
 
@@ -63,6 +65,11 @@ export class GasChartComponent implements OnInit {
       this.gasChartData[0].data.push(Number(readString));
       this.gasChartLabels.push(`${labelString}`);
     }
+  }
+
+  ngOnDestroy(): void {
+    const menu = document.getElementById("gas-menu");
+    menu.className = "li a";
   }
 
 }

@@ -32,7 +32,7 @@ export class ListReadingsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.airUnitId = params['id'];
       this.airReadingsService.getReadings(this.airUnitId).subscribe(readings => {
         readings.reverse();
-        readings.forEach( this.convertDate );
+        readings.forEach( ListReadingsComponent.convertDate );
         console.log(readings);
         this.readings = readings;
         this.selectedReading = this.readings[0];
@@ -48,8 +48,8 @@ export class ListReadingsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  private convertDate( item ){
-    item.date = new Date(item.date).toUTCString();
+  private static convertDate(item ){
+    item.date = new Date(item.date).toLocaleString("en-GB", {timeZone: "Europe/Rome"});
   }
 
   private setSelectedReading(reading: Reading){
@@ -72,7 +72,7 @@ export class ListReadingsComponent implements OnInit, AfterViewInit, OnDestroy {
         title: title,
       }
     );
-    navigator.geolocation.getCurrentPosition(position => {
+    navigator.geolocation.getCurrentPosition(() => {
       this.center = {
         lat: lat,
         lng: lng,

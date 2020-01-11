@@ -36,7 +36,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   setLatestReadingData(latest: Reading){
     this.temperatureString = (latest.temperatureReading != 'Error') ? latest.temperatureReading+" °C" : "Error during temperature reading";
-    this.latestReadingDate = (latest.date != 'Error') ? new Date(latest.date).toUTCString() : "Error during date reading";
+    this.latestReadingDate = (latest.date != 'Error') ? new Date(latest.date).toLocaleString("en-GB", {timeZone: "Europe/Rome"}) : "Error during date reading";
     this.humidityString = (latest.humidityReading != 'Error') ? latest.humidityReading+" %" : "Error during humidity reading";
     this.dryStatusString = (latest.dryOrWet != 'Error') ? "The device is "+latest.dryOrWet : "Error during reading of dry/wet state";
     this.dustString = (latest.dust != 'Error') ? latest.dust+" Particles/m3" : "Error during particles reading";
