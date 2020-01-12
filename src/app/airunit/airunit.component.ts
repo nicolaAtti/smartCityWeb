@@ -8,7 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class AirunitComponent implements OnInit {
 
-  private airUnitId: string;
+  airUnitId: string;
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 

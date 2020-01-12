@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./particles-chart.component.sass']
 })
 export class ParticlesChartComponent implements OnInit, OnDestroy {
-  private airUnitId: string;
+  airUnitId: string;
 
   public particlesChartData: ChartDataSets[] = [
     { data: [], label: 'Pm 10 Levels' },
@@ -57,12 +57,12 @@ export class ParticlesChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getParticlesList(readings: Reading[]){
+  getParticlesList(readings: Reading[]){
     readings.forEach(reading => {
       this.evaluateReading(reading.pm10Reading, reading.pm25Reading, reading.date);
     });
   }
-  private evaluateReading(readPm10String: string, readPm25String: string, readLabel: string){
+  evaluateReading(readPm10String: string, readPm25String: string, readLabel: string){
     let pm10Added = false;
     let pm25Added = false;
     if(readPm10String != "Error"){

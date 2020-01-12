@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./humidity-chart.component.sass']
 })
 export class HumidityChartComponent implements OnInit, OnDestroy {
-  private airUnitId: string;
+  airUnitId: string;
 
   public humidityChartData: ChartDataSets[] = [
     { data: [], label: 'Humidity %' }
@@ -57,11 +57,11 @@ export class HumidityChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getHumidityList(readings: Reading[]){
+  getHumidityList(readings: Reading[]){
     readings.forEach(reading => this.evaluateReading(reading.humidityReading, reading.date));
   }
 
-  private evaluateReading(readString: string, readLabel: string){
+  evaluateReading(readString: string, readLabel: string){
     if(readString != "Error"){
       const date = new Date(readLabel);
       const labelString = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;

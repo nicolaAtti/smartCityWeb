@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./temp-chart.component.sass']
 })
 export class TempChartComponent implements OnInit, OnDestroy {
-  private airUnitId: string;
+  airUnitId: string;
 
   public tempChartData: ChartDataSets[] = [
     { data: [], label: 'Temperature °C' }
@@ -55,11 +55,11 @@ export class TempChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getTemperatureList(readings: Reading[]){
+  getTemperatureList(readings: Reading[]){
     readings.forEach(reading => this.evaluateReading(reading.temperatureReading, reading.date));
   }
 
-  private evaluateReading(readString: string, readLabel: string){
+  evaluateReading(readString: string, readLabel: string){
     if(readString != "Error"){
       const date = new Date(readLabel);
       const labelString = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;

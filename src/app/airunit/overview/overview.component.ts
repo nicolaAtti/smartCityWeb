@@ -10,18 +10,18 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class OverviewComponent implements OnInit, OnDestroy {
 
-  private airUnitId: string;
-  private latestReadingDate: string;
-  private temperatureString: string;
-  private humidityString: string;
-  private dryStatusString: string;
-  private dustString: string;
-  private pm10String: string;
-  private pm25String: string;
-  private gasString: string;
-  private latitudeString: string;
-  private longitudeString: string;
-  private altitudeString: string;
+  airUnitId: string;
+  latestReadingDate: string;
+  temperatureString: string;
+  humidityString: string;
+  dryStatusString: string;
+  dustString: string;
+  pm10String: string;
+  pm25String: string;
+  gasString: string;
+  latitudeString: string;
+  longitudeString: string;
+  altitudeString: string;
 
   constructor(private route: ActivatedRoute, private router: Router, private airReadingsService: AirReadingsService) { }
 

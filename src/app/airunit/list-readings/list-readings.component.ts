@@ -10,10 +10,10 @@ import * as L from 'leaflet';
   styleUrls: ['./list-readings.component.sass']
 })
 export class ListReadingsComponent implements OnInit, AfterViewInit, OnDestroy {
-  private airUnitId: string;
-  private selectedReading: Reading;
-  private readings: Reading[];
-  private map;
+  airUnitId: string;
+  selectedReading: Reading;
+  readings: Reading[];
+  map;
 
   constructor(private route: ActivatedRoute, private router: Router, private airReadingsService: AirReadingsService) { }
 
@@ -38,11 +38,11 @@ export class ListReadingsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  private static convertDate(item ){
+  static convertDate(item ){
     item.date = new Date(item.date).toLocaleString("en-GB", {timeZone: "Europe/Rome"});
   }
 
-  private setSelectedReading(reading: Reading){
+  setSelectedReading(reading: Reading){
     console.log(reading.readingId);
     let btn = document.getElementById(this.selectedReading.readingId);
     btn.className = "nav-link";
@@ -52,18 +52,18 @@ export class ListReadingsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setMarkerAndCenter(Number(this.selectedReading.latitude), Number(this.selectedReading.longitude), this.selectedReading.readingId);
   }
 
-  private setMarkerAndCenter(lat: number, lng: number, title: string) {
-    this.map = L.map('mapid', {
+  setMarkerAndCenter(lat: number, lng: number, title: string) {
+    this.map = L.map('list-mapid', {
       center: [ lat, lng ],
-      zoom: 10
+      zoom: 13
     });
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
+      maxZoom: 20,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
     tiles.addTo(this.map);
 
-    var marker = L.marker([lng, lat]).addTo(this.map);
+    const marker = L.marker([lat, lng]).addTo(this.map);
     marker.bindPopup(title);
   }
 

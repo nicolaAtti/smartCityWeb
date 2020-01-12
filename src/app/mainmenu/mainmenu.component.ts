@@ -9,7 +9,7 @@ import * as L from 'leaflet';
   styleUrls: ['./mainmenu.component.sass']
 })
 export class MainmenuComponent implements OnInit {
-  private map;
+  map;
   airunits = [];
 
   constructor(private airReadingsService: AirReadingsService, private router: Router) { }
@@ -25,17 +25,17 @@ export class MainmenuComponent implements OnInit {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       });
       tiles.addTo(this.map);
-      this.airReadingsService.getAirUnits().subscribe(airUnits => {
-        this.airunits = airUnits;
-        airUnits.forEach( unit => this.airReadingsService.getLatestReading(unit.unitId).subscribe(reading => {
-          this.addMarker(Number(reading.latitude), Number(reading.longitude), unit.name);
-          this.router.config.push( {path: 'airunit-'+unit.unitId, loadChildren: () => import('../airunit/airunit.module').then(m => m.AirunitModule)});
-        }))
-      });
+    });
+    this.airReadingsService.getAirUnits().subscribe(airUnits => {
+      this.airunits = airUnits;
+      airUnits.forEach( unit => this.airReadingsService.getLatestReading(unit.unitId).subscribe(reading => {
+        this.addMarker(Number(reading.latitude), Number(reading.longitude), unit.name);
+        this.router.config.push( {path: 'airunit-'+unit.unitId, loadChildren: () => import('../airunit/airunit.module').then(m => m.AirunitModule)});
+      }))
     });
   }
 
-  private addMarker(lon: number, lat: number,title: string){
+  addMarker(lon: number, lat: number,title: string){
     var marker = L.marker([lon, lat]).addTo(this.map);
     marker.bindPopup(title);
   }

@@ -13,7 +13,6 @@ import { catchError } from 'rxjs/operators';
 export class InterceptorService implements HttpInterceptor{
   constructor() { }
   handleError(error: HttpErrorResponse){
-    console.log("INTERCETTATO ERRORE "+ error);
     return throwError(error);
   }
   intercept(req: HttpRequest<any>, next: HttpHandler):
