@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {AirReadingsService} from "../air-readings.service";
 import {Router} from "@angular/router";
 import * as L from 'leaflet';
-import {AirunitComponent} from "../airunit/airunit.component";
 
 @Component({
   selector: 'app-mainmenu',
@@ -10,7 +9,7 @@ import {AirunitComponent} from "../airunit/airunit.component";
   styleUrls: ['./mainmenu.component.sass']
 })
 
-export class MainmenuComponent implements OnInit {
+export class MainmenuComponent implements OnInit, AfterContentInit {
   map;
   airunits = [];
 
@@ -18,7 +17,7 @@ export class MainmenuComponent implements OnInit {
 
   ngOnInit() {
     navigator.geolocation.getCurrentPosition(position => {
-        this.map = L.map('mapid', {
+        this.map = new L.Map('mapid', {
         center: [ position.coords.latitude, position.coords.longitude ],
         zoom: 7
       });
@@ -30,16 +29,20 @@ export class MainmenuComponent implements OnInit {
     });
     this.airReadingsService.getAirUnits().subscribe(airUnits => {
       this.airunits = airUnits;
-      airUnits.forEach( unit => this.airReadingsService.getLatestReading(unit.unitId).subscribe(reading => {
+      this.airunits.forEach( unit => this.airReadingsService.getLatestReading(unit.unitId).subscribe(reading => {
         this.addMarker(Number(reading.latitude), Number(reading.longitude), unit.name);
-        //this.router.config.push( {path: 'airunit-'+unit.unitId, loadChildren: () => import('../airunit/airunit.module').then(m => m.AirunitModule)});
-        this.router.config[0].children.push( {path: 'airunit-'+unit.unitId, component: AirunitComponent});
-      }))
+        this.router.config.push( {path: 'airunit-'+unit.unitId, loadChildren: () => import('../airunit/airunit.module').then(m => m.AirunitModule)});
+      }));
+      console.log(this.router.config);
     });
   }
 
   addMarker(lon: number, lat: number,title: string){
     var marker = L.marker([lon, lat]).addTo(this.map);
     marker.bindPopup(title);
+  }
+
+  ngAfterContentInit(): void {
+
   }
 }
