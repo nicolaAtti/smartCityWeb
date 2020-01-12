@@ -57,12 +57,12 @@ export class ParticlesChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  getParticlesList(readings: Reading[]){
+  private getParticlesList(readings: Reading[]){
     readings.forEach(reading => {
       this.evaluateReading(reading.pm10Reading, reading.pm25Reading, reading.date);
     });
   }
-  evaluateReading(readPm10String: string, readPm25String: string, readLabel: string){
+  private evaluateReading(readPm10String: string, readPm25String: string, readLabel: string){
     let pm10Added = false;
     let pm25Added = false;
     if(readPm10String != "Error"){

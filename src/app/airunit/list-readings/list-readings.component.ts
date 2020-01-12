@@ -53,17 +53,17 @@ export class ListReadingsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setMarkerAndCenter(lat: number, lng: number, title: string) {
-    this.map = L.map('list-mapid', {
+    this.map = L.map('mapid', {
       center: [ lat, lng ],
-      zoom: 13
+      zoom: 10
     });
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 20,
+      maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
     tiles.addTo(this.map);
 
-    const marker = L.marker([lat, lng]).addTo(this.map);
+    var marker = L.marker([lat, lng]).addTo(this.map);
     marker.bindPopup(title);
   }
 

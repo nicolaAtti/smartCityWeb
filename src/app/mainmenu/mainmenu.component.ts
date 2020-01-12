@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import {AirReadingsService} from "../air-readings.service";
 import {Router} from "@angular/router";
 import * as L from 'leaflet';
+import {AirunitComponent} from "../airunit/airunit.component";
 
 @Component({
   selector: 'app-mainmenu',
   templateUrl: './mainmenu.component.html',
   styleUrls: ['./mainmenu.component.sass']
 })
+
 export class MainmenuComponent implements OnInit {
   map;
   airunits = [];
@@ -30,7 +32,8 @@ export class MainmenuComponent implements OnInit {
       this.airunits = airUnits;
       airUnits.forEach( unit => this.airReadingsService.getLatestReading(unit.unitId).subscribe(reading => {
         this.addMarker(Number(reading.latitude), Number(reading.longitude), unit.name);
-        this.router.config.push( {path: 'airunit-'+unit.unitId, loadChildren: () => import('../airunit/airunit.module').then(m => m.AirunitModule)});
+        //this.router.config.push( {path: 'airunit-'+unit.unitId, loadChildren: () => import('../airunit/airunit.module').then(m => m.AirunitModule)});
+        this.router.config[0].children.push( {path: 'airunit-'+unit.unitId, component: AirunitComponent});
       }))
     });
   }
