@@ -16,17 +16,15 @@ export class MainmenuComponent implements OnInit, AfterContentInit {
   constructor(private airReadingsService: AirReadingsService, private router: Router) { }
 
   ngOnInit() {
-    navigator.geolocation.getCurrentPosition(position => {
-        this.map = new L.Map('mapid', {
-        center: [ position.coords.latitude, position.coords.longitude ],
-        zoom: 7
-      });
+    this.map = new L.Map('mapid', {
+      center: [41.8719, 12.5674],
+      zoom: 6
+    });
       const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       });
       tiles.addTo(this.map);
-    });
     this.airReadingsService.getAirUnits().subscribe(airUnits => {
       this.airunits = airUnits;
       this.airunits.forEach( unit => this.airReadingsService.getLatestReading(unit.unitId).subscribe(reading => {

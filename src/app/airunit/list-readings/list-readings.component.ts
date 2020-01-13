@@ -14,6 +14,7 @@ export class ListReadingsComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedReading: Reading;
   readings: Reading[];
   map;
+  marker;
 
   constructor(private route: ActivatedRoute, private router: Router, private airReadingsService: AirReadingsService) { }
 
@@ -58,13 +59,15 @@ export class ListReadingsComponent implements OnInit, AfterViewInit, OnDestroy {
       zoom: 10
     });
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
+      maxZoom: 13,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
+    if(this.marker != undefined){
+      this.map.removeLayer(this.marker);
+    }
     tiles.addTo(this.map);
-
-    var marker = L.marker([lat, lng]).addTo(this.map);
-    marker.bindPopup(title);
+    this.marker = L.marker([lat, lng]).addTo(this.map);
+    this.marker.bindPopup(title);
   }
 
   ngOnDestroy(): void {
