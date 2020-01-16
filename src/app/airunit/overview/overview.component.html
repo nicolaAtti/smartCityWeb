@@ -1,4 +1,4 @@
-<h2>Current Overview</h2>
+<h2>General Overview</h2>
 <div class="py-0" style="">
   <div class="row-md-4 p-2">
     <div class="card my-1">
@@ -17,7 +17,17 @@
         <p class="card-text p-2">{{latestReadingDate}}</p>
       </div>
     </div>
+    <div class="card my-3">
+      <div class="card-header" >
+        <h5 class="mb-0 text-left">CAQI (1 Hour Readings)</h5>
+      </div>
+      <div class="card-body p-1" id="caqi-text">
+        <p class="card-text px-3 font-weight-bold">CAQI Status: {{this.caqiStatus}}</p>
+        <p class="card-text px-3 font-weight-bold">Index: {{this.caqi}}</p>
+      </div>
+    </div>
   </div>
+  <h2>Latest Reading Overview</h2>
   <div class="wrapper">
       <div class="card temperature my-4">
         <div class="card-header bg-primary">

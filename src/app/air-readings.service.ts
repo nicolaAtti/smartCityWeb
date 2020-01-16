@@ -27,4 +27,8 @@ export class AirReadingsService {
     return this.httpClient.get<AirUnit[]>(this.airReadingsApiBaseUrl+"/units");
   }
 
+  getGasCAQI(airUnitId: string): Observable<number>{
+    return this.httpClient.get<number>(this.airReadingsApiBaseUrl+"/units/"+airUnitId+"/readings/caqi");
+  }
+
 }

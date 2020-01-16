@@ -4,6 +4,8 @@ import { Color, Label } from 'ng2-charts';
 import {AirReadingsService} from "../../air-readings.service";
 import {Reading} from "../../Reading";
 import {ActivatedRoute, Router} from "@angular/router";
+import {interval} from "rxjs";
+import {startWith, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-gas-chart',
@@ -52,6 +54,7 @@ export class GasChartComponent implements OnInit, OnDestroy {
       this.airReadingsService.getReadings(this.airUnitId).subscribe(readings => this.getGasList(readings));
       const menu = document.getElementById("gas-menu");
       menu.className = "li a active";
+      interval(40000).pipe(startWith(0), switchMap(() => this.airReadingsService.getLatestReading(this.airUnitId))).subscribe(reading => this.evaluateReading(reading.gasReading,reading.date));
     });
   }
 
@@ -59,7 +62,7 @@ export class GasChartComponent implements OnInit, OnDestroy {
     readings.forEach(reading => this.evaluateReading(reading.gasReading, reading.date));
   }
   evaluateReading(readString: string, readLabel: string){
-    if(readString != "Error"){
+    if(readString !== "Error"){
       const date = new Date(readLabel);
       const labelString = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
       this.gasChartData[0].data.push(Number(readString));

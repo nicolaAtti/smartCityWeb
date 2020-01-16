@@ -13,6 +13,7 @@ export class MainmenuComponent implements OnInit, AfterContentInit {
   map;
   airunits = [];
 
+
   constructor(private airReadingsService: AirReadingsService, private router: Router) { }
 
   ngOnInit() {
@@ -31,7 +32,6 @@ export class MainmenuComponent implements OnInit, AfterContentInit {
         this.addMarker(Number(reading.latitude), Number(reading.longitude), unit.name);
         this.router.config.push( {path: 'airunit-'+unit.unitId, loadChildren: () => import('../airunit/airunit.module').then(m => m.AirunitModule)});
       }));
-      console.log(this.router.config);
     });
   }
 
