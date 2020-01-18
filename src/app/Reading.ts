@@ -1,5 +1,5 @@
 
-export class Reading{
+export class Reading {
   readingId: string;
   airUnitId: string;
   date: string;

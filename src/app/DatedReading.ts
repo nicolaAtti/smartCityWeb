@@ -1,6 +1,6 @@
-import {Reading} from "./Reading";
+import {Reading} from './Reading';
 
-export class DatedReading{
+export class DatedReading {
   dateString: string;
-  reading: Reading
+  reading: Reading;
 }

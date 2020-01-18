@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-airunit',
@@ -13,7 +13,7 @@ export class AirunitComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => this.airUnitId = params['id']);
+    this.route.queryParams.subscribe(params => this.airUnitId = params.id);
   }
 
 }

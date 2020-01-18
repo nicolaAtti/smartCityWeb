@@ -2,10 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {ChartsModule} from "ng2-charts";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {ChartsModule} from 'ng2-charts';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { MainmenuComponent } from './mainmenu/mainmenu.component';
-import {InterceptorService} from "./interceptor.service";
+import {InterceptorService} from './interceptor.service';
 
 @NgModule({
   declarations: [
