@@ -1,0 +1,9 @@
+h2 {
+  text-align: left;
+  color: white;
+  text-shadow: 5px 4px black;
+  padding: 5px 15px;
+  background: linear-gradient(90deg, #090979 10%, #1869a8 50%, #00d4ff 100%);
+}
+
+/*# sourceMappingURL=particles-chart.component.css.map */

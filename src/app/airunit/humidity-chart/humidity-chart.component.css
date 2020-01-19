@@ -1,0 +1,9 @@
+h2 {
+  text-align: left;
+  padding: 5px 15px;
+  text-shadow: 5px 4px black;
+  color: white;
+  background: linear-gradient(90deg, #090979 10%, #1869a8 50%, #00d4ff 100%);
+}
+
+/*# sourceMappingURL=humidity-chart.component.css.map */

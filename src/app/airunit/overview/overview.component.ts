@@ -48,7 +48,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.dustString = (latest.dust !== 'Error') ? latest.dust + ' Particles/m3' : 'Error during particles reading';
     this.pm10String = (latest.pm10Reading !== 'Error') ? latest.pm10Reading + ' μg/m3' : 'Error during pm10 reading';
     this.pm25String = (latest.pm25Reading !== 'Error') ? latest.pm25Reading + ' μg/m3' : 'Error during pm2.5 reading';
-    this.gasString = (latest.gasReading !== 'Error') ? latest.gasReading + ' ppm' : 'Error during gas reading';
+    this.gasString = (latest.gasReading !== 'Error') ? latest.gasReading + ' ppm' : 'Error during CO reading';
     this.latitudeString = (latest.latitude !== 'Error') ? latest.latitude + ' °' : 'Error during latitude reading';
     this.longitudeString = (latest.longitude !== 'Error') ? latest.longitude + ' °' : 'Error during longitude reading';
     this.altitudeString = (latest.altitude !== 'Error') ? latest.altitude + ' m' : 'Error during altitude reading';

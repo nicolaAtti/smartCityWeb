@@ -16,7 +16,7 @@ export class GasChartComponent implements OnInit, OnDestroy {
   airUnitId: string;
 
   public gasChartData: ChartDataSets[] = [
-    { data: [], label: 'Gas Reading' },
+    { data: [], label: 'CO Reading' },
   ];
   public gasChartLabels: Label[] = [];
   public gasChartOptions: ChartOptions = {
