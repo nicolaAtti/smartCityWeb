@@ -53,19 +53,21 @@ export class ParticlesChartComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.airUnitId = params.id;
-      this.airReadingsService.getReadings(this.airUnitId).subscribe(readings => this.getParticlesList(readings));
-      const menu = document.getElementById('particles-menu');
-      menu.className = 'li a active';
-      interval(30000).pipe(startWith(0), switchMap(() => this.airReadingsService.getLatestReading(this.airUnitId))).subscribe(reading => this.evaluateReading(reading.pm10Reading, reading.pm25Reading, reading.date));
+      this.airReadingsService.getReadings(this.airUnitId).subscribe(readings => {
+        this.getParticlesList(readings);
+        const menu = document.getElementById('particles-menu');
+        menu.className = 'li a active';
+        window.setInterval(() => this.airReadingsService.getLatestReading(this.airUnitId).subscribe(reading => this.evaluateReading(reading.pm10Reading, reading.pm25Reading, reading.date, true)),30000)
+      });
     });
   }
 
   private getParticlesList(readings: Reading[]) {
     readings.forEach(reading => {
-      this.evaluateReading(reading.pm10Reading, reading.pm25Reading, reading.date);
+      this.evaluateReading(reading.pm10Reading, reading.pm25Reading, reading.date, false);
     });
   }
-  private evaluateReading(readPm10String: string, readPm25String: string, readLabel: string) {
+  private evaluateReading(readPm10String: string, readPm25String: string, readLabel: string, isNew: boolean) {
     let pm10Added = false;
     let pm25Added = false;
     if (readPm10String !== 'Error') {
@@ -77,6 +79,11 @@ export class ParticlesChartComponent implements OnInit, OnDestroy {
       pm25Added = true;
     }
     if (pm10Added || pm25Added) {
+      if(isNew && this.particlesChartData[0].data.length >= 50){
+        this.particlesChartData[0].data.shift();
+        this.particlesChartData[1].data.shift();
+        this.particlesChartLabels.shift();
+      }
       const date = new Date(readLabel);
       const labelString = dateFormat(date, 'dd/mm/yy - h:MM');
       this.particlesChartLabels.push(`${labelString}`);

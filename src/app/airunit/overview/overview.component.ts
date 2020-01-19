@@ -35,9 +35,11 @@ export class OverviewComponent implements OnInit, OnDestroy {
       this.airUnitId = params.id;
       const menu = document.getElementById('overview-menu');
       menu.className = 'li a active';
+      window.setInterval(() => {
+        this.airReadingsService.getLatestReading(this.airUnitId).subscribe(reading => this.setLatestReadingData(reading));
+        this.airReadingsService.getGasCAQI(this.airUnitId).subscribe(caqi => this.evaluateCaqi(caqi));
+      },30000);
     });
-    interval(30000).pipe(startWith(0), switchMap(() => this.airReadingsService.getLatestReading(this.airUnitId))).subscribe(reading => this.setLatestReadingData(reading));
-    interval(30000).pipe(startWith(0), switchMap(() => this.airReadingsService.getGasCAQI(this.airUnitId))).subscribe(caqi => this.evaluateCaqi(caqi));
   }
 
   setLatestReadingData(latest: Reading) {

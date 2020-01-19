@@ -55,19 +55,25 @@ export class HumidityChartComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.airUnitId = params.id;
-      this.airReadingsService.getReadings(this.airUnitId).subscribe(readings => this.getHumidityList(readings));
-      const menu = document.getElementById('humidity-menu');
-      menu.className = 'li a active';
-      interval(30000).pipe(startWith(0), switchMap(() => this.airReadingsService.getLatestReading(this.airUnitId))).subscribe(reading => this.evaluateReading(reading.humidityReading, reading.date));
+      this.airReadingsService.getReadings(this.airUnitId).subscribe(readings => {
+        this.getHumidityList(readings);
+        const menu = document.getElementById('humidity-menu');
+        menu.className = 'li a active';
+        window.setInterval(() => this.airReadingsService.getLatestReading(this.airUnitId).subscribe(reading => this.evaluateReading(reading.humidityReading, reading.date, true)),30000);
+      });
     });
   }
 
   getHumidityList(readings: Reading[]) {
-    readings.forEach(reading => this.evaluateReading(reading.humidityReading, reading.date));
+    readings.forEach(reading => this.evaluateReading(reading.humidityReading, reading.date, false));
   }
 
-  evaluateReading(readString: string, readLabel: string) {
+  evaluateReading(readString: string, readLabel: string, isNew: boolean) {
     if (readString !== 'Error') {
+      if(isNew && this.humidityChartData[0].data.length >= 50){
+        this.humidityChartData[0].data.shift();
+        this.humidityChartLabels.shift();
+      }
       const date = new Date(readLabel);
       const labelString = dateFormat(date, 'dd/mm/yy - h:MM');
       this.humidityChartData[0].data.push(Number(readString));

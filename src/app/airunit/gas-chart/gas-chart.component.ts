@@ -51,18 +51,24 @@ export class GasChartComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.airUnitId = params.id;
-      this.airReadingsService.getReadings(this.airUnitId).subscribe(readings => this.getGasList(readings));
-      const menu = document.getElementById('gas-menu');
-      menu.className = 'li a active';
-      interval(30000).pipe(startWith(0), switchMap(() => this.airReadingsService.getLatestReading(this.airUnitId))).subscribe(reading => this.evaluateReading(reading.gasReading, reading.date));
+      this.airReadingsService.getReadings(this.airUnitId).subscribe(readings => {
+        this.getGasList(readings);
+        const menu = document.getElementById('humidity-menu');
+        menu.className = 'li a active';
+        window.setInterval(() => this.airReadingsService.getLatestReading(this.airUnitId).subscribe(reading => this.evaluateReading(reading.humidityReading, reading.date, true)),30000);
+      });
     });
   }
 
   getGasList(readings: Reading[]) {
-    readings.forEach(reading => this.evaluateReading(reading.gasReading, reading.date));
+    readings.forEach(reading => this.evaluateReading(reading.gasReading, reading.date, false));
   }
-  evaluateReading(readString: string, readLabel: string) {
+  evaluateReading(readString: string, readLabel: string, isNew: boolean) {
     if (readString !== 'Error') {
+      if(isNew && this.gasChartData[0].data.length >= 50){
+        this.gasChartData[0].data.shift();
+        this.gasChartLabels.shift();
+      }
       const date = new Date(readLabel);
       const labelString = dateFormat(date, 'dd/mm/yy - h:MM');
       this.gasChartData[0].data.push(Number(readString));
