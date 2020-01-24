@@ -35,6 +35,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
       this.airUnitId = params.id;
       const menu = document.getElementById('overview-menu');
       menu.className = 'li a active';
+      this.airReadingsService.getLatestReading(this.airUnitId).subscribe(reading => this.setLatestReadingData(reading));
+      this.airReadingsService.getGasCAQI(this.airUnitId).subscribe(caqi => this.evaluateCaqi(caqi));
       window.setInterval(() => {
         this.airReadingsService.getLatestReading(this.airUnitId).subscribe(reading => this.setLatestReadingData(reading));
         this.airReadingsService.getGasCAQI(this.airUnitId).subscribe(caqi => this.evaluateCaqi(caqi));
