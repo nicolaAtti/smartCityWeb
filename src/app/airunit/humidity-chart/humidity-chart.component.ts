@@ -53,12 +53,12 @@ export class HumidityChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    const menu = document.getElementById('humidity-menu');
+    menu.className = 'li a active';
     this.route.queryParams.subscribe(params => {
       this.airUnitId = params.id;
       this.airReadingsService.getReadings(this.airUnitId).subscribe(readings => {
         this.getHumidityList(readings);
-        const menu = document.getElementById('humidity-menu');
-        menu.className = 'li a active';
         window.setInterval(() => this.airReadingsService.getLatestReading(this.airUnitId).subscribe(reading => this.evaluateReading(reading.humidityReading, reading.date, true)),30000);
       });
     });

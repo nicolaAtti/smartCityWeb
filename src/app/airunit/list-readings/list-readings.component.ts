@@ -41,7 +41,7 @@ export class ListReadingsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     document.getElementsByClassName('nav-link')[0].className = 'nav-link-active';
     this.map = L.map('mapid', {
-      center: [ this.readings[0].latitude, this.readings[0].longitude ],
+      center: [41.8719, 12.5674],
       zoom: 10
     });
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -66,6 +66,7 @@ export class ListReadingsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.marker != undefined) {
       this.map.removeLayer(this.marker);
     }
+    this.map.panTo(new L.LatLng(lat, lng));
     this.marker = L.marker([lat, lng]).addTo(this.map);
     this.marker.bindPopup(title);
   }
